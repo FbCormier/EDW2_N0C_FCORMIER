@@ -1,0 +1,26 @@
+# Variables d'environnement
+.env
+.env.local
+
+# Logs
+*.log
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# VS Code
+.vscode/
+
+# Fichiers temporaires
+*.tmp
+*.swp
+
+# Dépendances Composer
+vendor/
+
+# Dépendances Node.js
+node_modules/
