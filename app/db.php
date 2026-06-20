@@ -6,7 +6,16 @@ if (!file_exists($envPath)) {
     die("Erreur : le fichier .env est manquant.");
 }
 
-$env = parse_ini_file($envPath);
+$env = [];
+
+foreach (file($envPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
+    if (substr(trim($line), 0, 1) === '#') {
+        continue;
+    }
+
+    [$key, $value] = array_map('trim', explode('=', $line, 2));
+    $env[$key] = $value;
+}
 
 $host = $env['DB_HOST'] ?? 'localhost';
 $dbname = $env['DB_NAME'] ?? '';
@@ -24,5 +33,5 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 } catch (PDOException $e) {
-    die("Erreur de connexion Ã  la base de donnÃ©es : " . $e->getMessage());
+    die("Erreur de connexion à la base de données : " . $e->getMessage());
 }
